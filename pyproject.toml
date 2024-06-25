@@ -1,0 +1,50 @@
+[tool.pdm]
+distribution = true
+
+[project]
+name = "pctoolkit"
+version = "0.1.0"
+description = "PCToolkit: A Unified Plug-and-Play Prompt Compression Toolkit of Large Language Models"
+# PEP 621 project metadata
+# See https://www.python.org/dev/peps/pep-0621/
+dependencies = [
+    "spacy==3.7.5",
+    "bs4==0.0.2",
+    "evaluate==0.4.2",
+    "openai==1.35.3",
+    "pandas==2.2.2",
+    "numpy==1.26.4",
+    "torch==2.3.1",
+    "tqdm==4.66.4",
+    "filelock==3.15.4",
+    "llmlingua==0.2.2",
+    "transformers==4.41.2",
+    "datasets==2.20.0",
+    "sentence-transformers==3.0.1",
+    "rouge-score==0.1.2",
+    "nltk==3.8.1",
+    "wordfreq==3.1.1",
+    "textstat==0.7.3",
+    "wandb==0.17.2",
+    "rake-nltk==1.0.6",
+    "scikit-learn==1.5.0",
+    "colorama==0.4.6",
+    "rouge==1.0.1",
+    "fuzzywuzzy==0.18.0",
+    "bert-score>=0.3.13",
+    "gdown>=5.2.0",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Palash Karmore", email = "palash.karmore@abluva.com"},
+]
+
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project.scripts]
+pc_download_model = "pctoolkit.download:main"

@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
-from abs_compressor import AbstractCompressor
+from .abs_compressor import AbstractCompressor
 
 
 class KiSCompressor(AbstractCompressor):
@@ -15,7 +15,9 @@ class KiSCompressor(AbstractCompressor):
         # self.tokenizer.pad_token = self.tokenizer.eos_token
         # self.kis_model.eval()
 
-    def compress(self, original_prompt: str, ratio: float = 0.5, max_length: int = 150, num_beams: int = 4, do_sample: bool = True, num_return_sequences: int = 1, target_index: int = 0) -> dict:
+    def compress(self, original_prompt: str,
+                 ratio: float = 0.5, max_length: int = 150,
+                 num_beams: int = 4, do_sample: bool = True, num_return_sequences: int = 1, target_index: int = 0) -> dict:
 
         original_tokens = len(self.gpt_tokenizer.encode(original_prompt))
 

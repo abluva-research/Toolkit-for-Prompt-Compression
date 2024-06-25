@@ -1,6 +1,4 @@
-import sys
-sys.path.append('..')
-from datasets_helper import Dataset
+from pctoolkit.datasets_helper import Dataset
 
 
 def load_dataset(dataset_name: str, subdataset_name: str = ""):

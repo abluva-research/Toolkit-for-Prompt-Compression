@@ -1,4 +1,3 @@
-from llmlingua import PromptCompressor
 import bisect
 from collections import defaultdict
 from typing import List
@@ -8,12 +7,12 @@ import torch
 
 import nltk
 import tiktoken
-import re
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
-from abs_compressor import AbstractCompressor
+from .abs_compressor import AbstractCompressor
 
 encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+
 
 class LongLLMLinguaCompressor(AbstractCompressor):
     def __init__(
@@ -48,7 +47,7 @@ class LongLLMLinguaCompressor(AbstractCompressor):
                 config=config,
                 ignore_mismatched_sizes=True,
                 trust_remote_code=True,
-                token="Your Token here"
+                token="Your Token here",
             ).to(device_map)
         else:
             model = AutoModelForCausalLM.from_pretrained(
@@ -61,7 +60,7 @@ class LongLLMLinguaCompressor(AbstractCompressor):
                 cache_dir="/tmp/cache",
                 use_auth_token=use_auth_token,
                 trust_remote_code=True,
-                token="Your Token here"
+                token="Your Token here",
             )
         self.tokenizer = tokenizer
         self.model = model
@@ -811,12 +810,12 @@ class LongLLMLinguaCompressor(AbstractCompressor):
                     split_token_id=split_token_id,
                     start=start,
                     self_loss=self_loss if condition_compare else None,
-                    self_input_ids=self_compressed_input_ids
-                    if condition_compare
-                    else None,
-                    self_attention_mask=self_compressed_attention_mask
-                    if condition_compare
-                    else None,
+                    self_input_ids=(
+                        self_compressed_input_ids if condition_compare else None
+                    ),
+                    self_attention_mask=(
+                        self_compressed_attention_mask if condition_compare else None
+                    ),
                 )
                 end += iterative_size
             idx += 1
@@ -1147,4 +1146,3 @@ class LongLLMLinguaCompressor(AbstractCompressor):
         elif rank_method == "cohere":
             method = get_distance_cohere
         return method(context, question)
-
